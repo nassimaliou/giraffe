@@ -14,11 +14,10 @@
 \usepackage{import}
 
 \usepackage{hyperref}
-\author{Ayoub Mokhtari, M. Nassim Aliousalah, Mohammed D. Belgoumri,\\ Oussama Djetaou \\ \\ \\ 2CS SQ1-SQ2}
-\date{\today}
-\title{Giraffe : Using Deep Reinforcement Learning to Play Chess}
+%\author{Ayoub Mokhtari, M. Nassim Aliousalah, Mohammed D. Belgoumri,\\ Oussama Djetaou \\ \\ \\ 2CS SQ1-SQ2}
+%\title{Giraffe : Using Deep Reinforcement Learning to Play Chess}
 
-\usepackage{geometry}
+\usepackage[margin=0.7in]{geometry}
 \newlength\figureheight
 \newlength\figurewidth
 
@@ -48,14 +47,30 @@
 \setlength\parindent{24pt}
 
 \begin{document}
-	\maketitle
+	
+\begin{titlepage}
+    \begin{center}
+        \vspace*{6cm}
+        \Huge
+        \textbf{Giraffe\\}
+        \vspace{1cm}
+        \LARGE
+        Using Deep Reinforcement Learning to Play Chess\\
+		(Summary)
+        \vfill
+        M. Nassim Aliousalah, Mohammed D. Belgoumri, Ayoub Mokhtari, Oussama Djetaou\\
+		\vspace{1.5cm}
+        \Large
+        SIQ1 - SIQ2\\
+        ESI\\
+    \end{center}
+\end{titlepage}
 	\newpage
+	\vspace*{3cm}
     \tableofcontents
     \newpage
-
 	\input{intro.tex}
 	\input{NN_based_evaluation.tex}
 	\input{probabilistic_search.tex}
 	\input{NN_based_prob_estimation.tex}
-	\input{conclusion.tex}
 \end{document}

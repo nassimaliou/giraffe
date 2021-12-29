@@ -1,0 +1,44 @@
+\section{Neural Network-Based Evaluation}
+			The first challenge we have to deal with is the evaluation function, because it is required in other systems. This function is called at the leaf nodes, takes as input a position and estimate the probability of winning
+		\subsection{Feature Representation}
+			In order to make the neural networks work efficiently, we need to make the feature representation of the input space relatively smooth.
+			Representing positions in bitmaps is unlikely to work well because in some cases, different positions have the same distance from each other in feature space.
+			Thus we will be using slot system.
+            Feature representation consists of the following parts :
+			\begin{enumerate}
+				\item Side to Move
+				\item Castling Rights
+				\item Material Configuration
+				\item Piece Lists
+				\item Sliding Pieces Mobility
+				\item Attack and Defend Maps
+			\end{enumerate}
+
+	
+		\subsection{Network Architecture}
+			
+            The evaluator network is a 3-layer network, where all hidden nodes use Rectified Linear activation (ReLU).
+			The output node uses hyperbolic tangent activation to constrain the output between -1 and 1.
+			there are three modalities :
+			\begin{enumerate}
+				\item piece-centric 
+				\item square-centric
+				\item position-centric
+			\end{enumerate}
+        
+        \subsection{Training Set Generation}
+			Generating a good set of positions needs to satisfy a few potentially conflicting objectives : 
+			\begin{enumerate}
+				\item Correct Distribution
+				\item Variety
+				\item High Volume
+			\end{enumerate}
+
+		\subsection{Network Initialization}
+			Even TD-Leaf can train a system from random initialization, in a complex problem like chess, random initialization would lead to extremely long training times. Therefore a simple evaluation function introduced to bootstrap the
+			training process to puts the neural network at a point in the parameter space that is closer to a good minimum.
+		\subsection{TD-Leaf}
+			One way to train the network is through temporal-difference reinforcement learning (a modified version of TD-Leaf($\lambda$) - for this project) making 
+			the evaluation function a better predictor of its own evaluation later in time.
+			\\The update rule for TD-Leaf($\lambda$) :
+			$$ w = w + \alpha \sum_{t=1}^{N-1} \Delta J(x_{t} ,w) [ \sum_ {j=t}^{N-1} \lambda^{j-t} d_{t} ]$$

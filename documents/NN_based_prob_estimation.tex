@@ -1,0 +1,38 @@
+\section{Neural Network-Based Probability Estimation}
+		\subsection{Neural Network-Based Probability Estimation}
+			Can be resumed into two parts:
+			\begin{enumerate}
+				\item Describing the parent position
+				\item Describing the move under consideration
+			\end{enumerate}
+			The part that describes the parent position is exactly the same as the feature representation we use for position evaluation, as described in the feature representation of Neural Network-Based Evaluation.With additional features as follows:
+			\begin{enumerate}
+				\item Piece Type
+				\item From Square
+				\item To Square
+				\item Promotion Type
+				\item Rank
+			\end{enumerate}
+		\subsection{Network Architecture}
+			Similar to the architecture for the evaluation network described in network architecture of Neural Network-Based Evaluation .The only difference is that the output node has logistic activation instead of hyperbolic tangent activation. It also has rectified linear activation for hidden nodes, and separately-connected layers for features from the three different modalities.
+		\subsection{Training Positions Generation}
+		We need a corpus of unlabeled positions.
+		But not the same corpus used in Evaluation network training.
+		For training the evaluation network using TD-Leaf($\lambda$), we need the training positions to be representative of root positions that will appear in actual games.
+		To generate this training set :
+		\begin{enumerate}
+			\item Performing time-limited searches on the root positions from the training set for evaluation network training
+			\item Performing a random sample from the positions encountered as internal nodes in those searches
+		\end{enumerate}
+
+		\subsection{Network Training}
+			We have a trained evaluator which can find the best move for each training position, as a consequence, we don’t need an iterative temporal-difference learning.
+			\begin{enumerate}
+				\item \textbf{First step:}
+					label each training position with the best move by
+					performing a time-limited search on each one of them.
+				\item \textbf{Second step:}
+					the generation of the training set for gradient descent by combining each position with all legal moves from that position, labeled by a binary training target specifying whether the move is the best move or not.
+				\item \textbf{Last step:}
+					performing a stochastic gradient descent with AdaDelta update rules using the cross-entropy loss function.
+			\end{enumerate}
